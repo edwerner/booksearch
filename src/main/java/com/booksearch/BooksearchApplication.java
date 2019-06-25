@@ -12,12 +12,6 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 
 @SpringBootApplication
 public class BooksearchApplication {
-
-	@Bean
-	RouterFunction<ServerResponse> routes(BookRepository br) {
-		return RouterFunctions.route(GET("/books"), serverRequest -> ok().body(br.findAll(), Book.class));
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(BooksearchApplication.class, args);
 	}
