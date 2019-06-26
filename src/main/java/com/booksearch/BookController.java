@@ -22,18 +22,12 @@ public class BookController {
 //    }
     @Bean
     RouterFunction<ServerResponse> routes(BookRepository br) {
-        return RouterFunctions.route(GET("/books"), serverRequest -> ok().body(br.findAll(), Book.class));
+        return RouterFunctions.route(GET("/bookfeed"), serverRequest -> ok().body(br.findAll(), Book.class));
     }
 
-    @RequestMapping(value = "/")
-       public String index() {
-          return "index";
-       }
-//    @GetMapping("/")
-//    public String home(Model model) {
-////        Flux<Book> books = bookRepository.findAll();
-//        model.addAttribute("books", "books");
-//        return "/resources/templates/index";
-//    }
-
+    @RequestMapping(value = "/books")
+      public String index(Model model) {
+    	model.addAttribute("message", "data");
+    	return "index";
+      }
 }
