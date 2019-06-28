@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-	<span th:text="'Hello, ' + ${message}" />
+	<div th:each="book : ${books}">
+        <p th:text="${book}"></p>
+    </div>
 </body>
 </html>
