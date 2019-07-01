@@ -38,10 +38,10 @@ public class BookController {
     @RequestMapping(value = "/books")
       public String index(final Model model) {
     
-        IReactiveDataDriverContextVariable books =
-                new ReactiveDataDriverContextVariable(bookRepository.findAll());
+//        IReactiveDataDriverContextVariable books =
+//                new ReactiveDataDriverContextVariable(bookRepository.findAll());
 
-        model.addAttribute("books", books);
+        model.addAttribute("books", bookRepository.findAll());
     	
     	return "index";
       }
