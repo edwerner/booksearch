@@ -1,0 +1,15 @@
+.book {
+	width: 250px;
+	border-radius: 2px;
+	padding: 10px;
+  	box-shadow: 2px 1pxpx #888888;
+}
+
+.book-img {
+	width: 100px;
+}
+
+.el-bold {
+	margin-right: 5px;
+	font-weight: bold;
+}
