@@ -53,3 +53,9 @@
 	-ms-flex-line-pack: center;
 	align-content: center;
 }
+
+.flex-row-wrap {
+  	flex-flow: row wrap;
+  	-webkit-flex-flow: row wrap;
+	-ms-flex-flow: row wrap;
+}
