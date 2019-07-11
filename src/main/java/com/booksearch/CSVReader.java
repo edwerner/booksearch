@@ -28,36 +28,11 @@ public class CSVReader {
 				
 
 				String[] books = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-//				String book = Arrays.toString(books);
-				System.out.println("BOOK: " + books[7]);
 
 				String isbn = books[5];
 				String author = books[7];
-
-				// remove double quotes
-//				author = author.replaceAll("\"", "").replaceAll(",", "");
-//				author = author.replaceAll("^\"|\"$", "").replaceAll(",", "");
-//				
-//				String[] tokens = author.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-//				author = Arrays.toString(tokens);
-//				System.out.println("AUTHORS:" + author);
-//				System.out.println("ISBN:" + isbn);
-//		         
-//				for (String token: tokens) {
-//				    System.out.println("TOKEN: " + token);
-//				}
-				
 				String year = books[8];
 				String title = books[10];
-				
-				// remove double quotes and comma
-//				title = title.replaceAll("\"", "").replaceAll(",", "");
-//				Pattern pattern = Pattern.compile("\\s*(\"[^\"]*\"|[^,]*)\\s*");
-//				Matcher matcher = pattern.matcher(line);
-//				while (matcher.find()) {
-//				    System.out.println("REGEX GROUP " + matcher.group(1));
-//				}
-				
 				String language = books[11];
 				String rating = books[12];
 				
@@ -69,6 +44,7 @@ public class CSVReader {
 				boolean isLgUrl = Pattern.matches(isBookImage, lgImage);
 				boolean isSmUrl = Pattern.matches(isBookImage, smImage);
 				
+				// replace missing url with placeholder image
 				if (isLgUrl) {
 					lgImage = books[21];
 				} else {
@@ -81,16 +57,16 @@ public class CSVReader {
 					smImage = "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png";
 				}
 				
-//				Book book = new Book();
-//				book.setTitle(title);
-//				book.setAuthor(author);
-//				book.setIsbn(isbn);
-//				book.setLanguage(language);
-//				book.setRating(rating);
-//				book.setYear(year);
-//				book.setLgImage(lgImage);
-//				book.setSmImage(smImage);
-//				bookRepository.saveAll(Flux.just(book)).subscribe();
+				Book book = new Book();
+				book.setTitle(title);
+				book.setAuthor(author);
+				book.setIsbn(isbn);
+				book.setLanguage(language);
+				book.setRating(rating);
+				book.setYear(year);
+				book.setLgImage(lgImage);
+				book.setSmImage(smImage);
+				bookRepository.saveAll(Flux.just(book)).subscribe();
 			}
 
 		} catch (FileNotFoundException e) {

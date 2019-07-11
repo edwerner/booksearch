@@ -3,22 +3,38 @@ package com.booksearch;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Entity
+@Indexed
 public class Book {
 
-    private String isbn;
     private String id;
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
+    private String isbn;
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String title;
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String author;
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String language;
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String rating;
     private String smImage;
     private String lgImage;
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String year;
 
     public String getId() {
