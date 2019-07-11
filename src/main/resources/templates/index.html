@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
-	<link rel="stylesheet" href="/css/flex.css">
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/flex.css">
 	<link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
+	<div class="navbar-inner">
+		<form class="navbar-search pull-left" action="/search" method="GET">
+		  <input type="text" class="search-query" placeholder="Search books">
+		</form>
+	</div>
 	<div class="book-container flex flex-row flex-row-wrap">
 		<div th:each="book : ${books}">
 			<nav class="book flex flex-column navbar navbar-default">
