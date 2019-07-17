@@ -1,16 +1,34 @@
+body, html {
+	background: #F5F5F5;
+}
+
 .book {
-	width: 250px;
 	border-radius: 2px;
 	padding: 10px;
 	margin: 10px;
-  	box-shadow: 2px 1pxpx #888888;
+  	cursor: pointer;
+  	background: #FFFFFF;
+	box-shadow: 1px 1px 1px #888888;
+	border: 1px solid #CCCCCC;
+}
+
+.book-container {
+	margin-top: 40px;
 }
 
 .book-img {
-	width: 100px;
+	width: 90px;
+	height: 120px;
+	margin-right: 10px;
 }
 
 .el-bold {
 	margin-right: 5px;
 	font-weight: bold;
+}
+
+.navbar-inner {
+	top: 0px;
+	position: fixed;
+	width: 100%;
 }

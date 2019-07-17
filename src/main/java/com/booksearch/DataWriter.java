@@ -15,6 +15,6 @@ public class DataWriter implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-    	CSVReader.saveBooks(bookRepository);
+//    	CSVReader.saveBooks(bookRepository);
     }
 }

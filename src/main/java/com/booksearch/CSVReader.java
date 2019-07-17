@@ -18,7 +18,7 @@ public class CSVReader {
 		String csvFile = "books.csv";
 		BufferedReader br = null;
 		String line = "";
-		String splitOn = ",";
+//		String splitOn = ",";
 
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
