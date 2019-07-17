@@ -5,4 +5,11 @@
 			alert("hello world");
 		}
     });
+    
+	$(window).on('load', function() {
+	    $( "#exampleModalCenter" ).animate({
+		  opacity: 1,
+		  top: "34%"
+		}, 2000).removeClass("fade");
+	});
 })();

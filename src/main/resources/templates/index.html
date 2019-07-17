@@ -6,14 +6,17 @@
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/flex.css">
 	<link rel="stylesheet" href="/css/app.css">
-	<script src="/javascripts/app.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/css/bootstrap-modal.css">
+  	</script>
 </head>
 <body>
+	
 	<div class="navbar-inner">
 		<form class="navbar-search pull-left" action="/search" method="GET">
 		  <input type="text" class="search-query" name="term" placeholder="Search books">
 		</form>
 	</div>
+	
 	<div class="book-container flex flex-column flex-column-wrap">
 		<div class="book" th:each="book : ${books}">
 			<div class="flex flex-row navbar navbar-default">
@@ -29,5 +32,28 @@
 	      	</div>
 	    </div>
     </div>
+    
+    <!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalCenterTitle">Welcome to BookSearch</h5>
+	      </div>
+	      <div class="modal-body">
+	        Click enter to begin
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success" data-dismiss="modal">Enter</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="modal-backdrop fade in" style="height: 995px;"></div>
+	
+	<script src="/javascripts/jquery-3.4.1.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<script src="/javascripts/app.js"></script>
+	
 </body>
 </html>
