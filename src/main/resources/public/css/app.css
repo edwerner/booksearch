@@ -31,4 +31,20 @@ body, html {
 	top: 0px;
 	position: fixed;
 	width: 100%;
+	z-index: 1041;
+}
+
+.modal-backdrop {
+	background: #000000;
+	opacity: 75%;
+	position: fixed;
+}
+
+.navbar-search .search-query {
+	font-size: 14px;
+}
+
+.book-container {
+	min-height: 100%;
+	overflow: hidden;
 }
