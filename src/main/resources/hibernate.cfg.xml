@@ -12,7 +12,7 @@
         <property name="hibernate.ogm.datastore.provider">mongodb</property>
         <property name="hibernate.ogm.datastore.host">127.0.0.1</property>
         <property name="hibernate.ogm.datastore.port">27017</property>
-        <property name="hibernate.ogm.datastore.database">book</property>
+        <property name="hibernate.ogm.datastore.database">test</property>
         <property name="hibernate.ogm.datastore.create_database">true</property>
 
         <mapping class="com.booksearch.Book"/>

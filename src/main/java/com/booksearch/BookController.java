@@ -71,16 +71,19 @@ public class BookController {
 		
 		Configuration cfg = new Configuration()
 	    .addClass(com.booksearch.Book.class)
-	    .setProperty("hibernate.ogm.datastore.provider", "org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider")
-//	    .setProperty("hibernate.ogm.datastore.grid_dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect")
 	    .setProperty("hibernate.ogm.datastore.database", "test")
-	    .setProperty("hibernate.ogm.mongodb.host", "127.0.0.1")
-	    .setProperty("hibernate.ogm.mongodb.port", "27017")
-	    .setProperty("hibernate.ogm.mongodb.database", "test")
-	    .setProperty("hibernate.ogm.datastore.provider", "mongodb")
-	    .setProperty("mapping.resource", "com.booksearch.Book.hbm.xml")
-	    .setProperty("hibernate.dialect", "org.hibernate.dialect.OracleDialect")
-	    .setProperty("hibernate.connection.driver_class", "org.hibernate.engine.jdbc.env.spi.JdbcEnvironment");
+	    .setProperty("hibernate.ogm.datastore.provider", "org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider");
+//	    .setProperty("hibernate.ogm.datastore.dialect", "org.hibernate.dialect.HSQLDialect")
+//	    .setProperty("hibernate.ogm.mongodb.host", "127.0.0.1")
+//	    .setProperty("hibernate.ogm.mongodb.port", "27017")
+//	    .setProperty("hibernate.ogm.mongodb.database", "test")
+//	    .setProperty("hibernate.ogm.datastore.provider", "mongodb")
+//	    .setProperty("hibernate.connection.url", "jdbc:hsqldb:mem:test")
+//	    .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver")
+//	    .setProperty("mapping.resource", "com.booksearch.Book.hbm.xml")
+//	    .setProperty("hibernate.dialect", "org.hibernate.dialect.OracleDialect")
+//        .setProperty("hibernate.ogm.datastore.create_database", "true");
+//	    .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver");
 		SessionFactory sessions = cfg.buildSessionFactory();
 		Session session = sessions.openSession();
 		
@@ -110,39 +113,39 @@ public class BookController {
 		return "search";
 	}
    
-    public void loadSessionFactory() {
-    	
-    	Properties properties = null;
-        if (properties == null) {
-            properties = new Properties();
-            try {
-                properties.load(PropertiesUtil.class.getResourceAsStream("application.properties"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+//    public void loadSessionFactory() {
+//    	
+//    	Properties properties = null;
+//        if (properties == null) {
+//            properties = new Properties();
+//            try {
+//                properties.load(PropertiesUtil.class.getResourceAsStream("application.properties"));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+// 
+//        Configuration configuration = new Configuration();
+////        configuration.configure("application.properties");
+//	    configuration.setProperty("hibernate.dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect");
+//        configuration.addProperties(properties);
+//        configuration.addAnnotatedClass(Book.class);
+//        ServiceRegistry srvcReg = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+//        sessionFactory = configuration.buildSessionFactory(srvcReg);
+//    }
  
-        Configuration configuration = new Configuration();
-//        configuration.configure("application.properties");
-	    configuration.setProperty("hibernate.dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect");
-        configuration.addProperties(properties);
-        configuration.addAnnotatedClass(Book.class);
-        ServiceRegistry srvcReg = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(srvcReg);
-    }
- 
-    public Session getSession() throws HibernateException {
- 
-        Session retSession = null;
-            try {
-                retSession = sessionFactory.openSession();
-            }catch(Throwable t){
-	            System.err.println("Exception while getting session.. ");
-	            t.printStackTrace();
-            }
-            if(retSession == null) {
-                System.err.println("session is discovered null");
-            }
-            return retSession;
-    }
+//    public Session getSession() throws HibernateException {
+// 
+//        Session retSession = null;
+//            try {
+//                retSession = sessionFactory.openSession();
+//            }catch(Throwable t){
+//	            System.err.println("Exception while getting session.. ");
+//	            t.printStackTrace();
+//            }
+//            if(retSession == null) {
+//                System.err.println("session is discovered null");
+//            }
+//            return retSession;
+//    }
 }
