@@ -7,11 +7,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 
 import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.bridge.builtin.IntegerBridge;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import org.bson.types.ObjectId;
 
 @Document
 @AllArgsConstructor
@@ -21,7 +26,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Indexed
 public class Book {
 
-    private String id;
+	@DocumentId
+	@FieldBridge(impl = IntegerBridge.class)
+    private ObjectId id;
     @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String isbn;
     @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
@@ -37,8 +44,12 @@ public class Book {
     @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String year;
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
+    }
+    
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getYear() {

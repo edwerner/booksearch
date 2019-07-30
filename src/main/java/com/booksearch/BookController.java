@@ -28,6 +28,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import org.thymeleaf.spring5.context.webflux.IReactiveDataDriverContextVariable;
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
 import org.hibernate.ogm.datastore.mongodb.MongoDBDialect;
+import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 
 import reactor.core.publisher.Flux;
 
@@ -47,12 +48,6 @@ public class BookController {
 	BookController(BookRepository bookRepository) {
 		this.bookRepository = bookRepository;
 //        loadSessionFactory();
-		
-//		Configuration cfg = new Configuration()
-//			    .addClass(Book.class)
-//			    .setProperty("hibernate.dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect");
-//		SessionFactory sessions = cfg.buildSessionFactory();
-//		Session session = sessions.openSession();
 	}
 
 	@Bean
@@ -72,10 +67,26 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/search")
-	public String search(final Model model, @RequestParam("term") String term) {
-	
-		Session session = getSession();
+	public String search(final Model model, @RequestParam("term") String term) throws InterruptedException {
+		
+		Configuration cfg = new Configuration()
+	    .addClass(com.booksearch.Book.class)
+	    .setProperty("hibernate.ogm.datastore.provider", "org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider")
+//	    .setProperty("hibernate.ogm.datastore.grid_dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect")
+	    .setProperty("hibernate.ogm.datastore.database", "test")
+	    .setProperty("hibernate.ogm.mongodb.host", "127.0.0.1")
+	    .setProperty("hibernate.ogm.mongodb.port", "27017")
+	    .setProperty("hibernate.ogm.mongodb.database", "test")
+	    .setProperty("hibernate.ogm.datastore.provider", "mongodb")
+	    .setProperty("mapping.resource", "com.booksearch.Book.hbm.xml")
+	    .setProperty("hibernate.dialect", "org.hibernate.dialect.OracleDialect")
+	    .setProperty("hibernate.connection.driver_class", "org.hibernate.engine.jdbc.env.spi.JdbcEnvironment");
+		SessionFactory sessions = cfg.buildSessionFactory();
+		Session session = sessions.openSession();
+		
 		FullTextSession fullTextSession = Search.getFullTextSession(session);
+		fullTextSession.createIndexer().startAndWait();
+		
 		QueryBuilder builder = fullTextSession.getSearchFactory()
 				.buildQueryBuilder().forEntity(Book.class).get();
 		
