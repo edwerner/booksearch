@@ -13,6 +13,7 @@ import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.context.annotation.Bean;
@@ -37,6 +38,10 @@ import reactor.core.publisher.Flux;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
@@ -101,17 +106,48 @@ public class BookController {
 //	    .setProperty("hibernate.dialect", "org.hibernate.dialect.OracleDialect")
 //        .setProperty("hibernate.ogm.datastore.create_database", "true");
 //	    .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver");
-		SessionFactory sessions = cfg.buildSessionFactory();
+//		SessionFactory sessions = cfg.buildSessionFactory();
 //		Session session = sessions.openSession();
 //		
-		System.out.println("************ SESSIONS **************: " + sessions);
+		
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("book");
+//		EntityManager em = entityManagerFactory.createEntityManager();
+//		FullTextEntityManager fullTextEntityManager =
+//		    org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+//		em.getTransaction().begin();
+//		
+//		
+//		QueryBuilder qb = fullTextEntityManager.getSearchFactory()
+//			    .buildQueryBuilder().forEntity(Book.class).get();
+//			org.apache.lucene.search.Query luceneQuery = qb
+//			  .keyword()
+//			  .onFields("title")
+//			  .matching("Harry Potter")
+//			  .createQuery();
+//
+//			// wrap Lucene query in a javax.persistence.Query
+//			javax.persistence.Query jpaQuery =
+//			    fullTextEntityManager.createFullTextQuery(luceneQuery, Book.class);
+//
+//			// execute search
+//			List result = jpaQuery.getResultList();
+//			
+//			System.out.println("RESULTS: " + result);
+//
+//			em.getTransaction().commit();
+//			
+//			em.close();
+		
 //		
 //		FullTextSession fullTextSession = Search.getFullTextSession(session);
 //		fullTextSession.createIndexer().startAndWait();
-//		
+
+//		System.out.println("************ QUERY BUILDER **************: " + fullTextSession.getSearchFactory()
+//		.buildQueryBuilder().forEntity(com.booksearch.Book.class));
+		
 //		QueryBuilder builder = fullTextSession.getSearchFactory()
-//				.buildQueryBuilder().forEntity(Book.class).get();
-//		
+//				.buildQueryBuilder().forEntity(com.booksearch.Book.class).get();
+		
 //		Query luceneQuery = builder.keyword()
 //				.onField("isbn")
 //				.andField("title")
