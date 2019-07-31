@@ -4,7 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.DocumentId;
@@ -14,6 +18,7 @@ import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 import org.hibernate.search.bridge.builtin.IntegerBridge;
+import org.hibernate.search.bridge.builtin.StringBridge;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import org.bson.types.ObjectId;
@@ -26,93 +31,100 @@ import org.bson.types.ObjectId;
 @Indexed
 public class Book {
 
-	@DocumentId
+	@Id
 	@FieldBridge(impl = IntegerBridge.class)
-    private ObjectId id;
-    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
-    private String isbn;
-    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
-    private String title;
-    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
-    private String author;
-    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
-    private String language;
-    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
-    private String rating;
-    private String smImage;
-    private String lgImage;
-    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
-    private String year;
+	private ObjectId id;
 
-    public ObjectId getId() {
-        return id;
-    }
-    
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	private String isbn;
 
-    public String getYear() {
-        return year;
-    }
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	private String title;
 
-    public void setYear(String year) {
-        this.year = year;
-    }
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	private String author;
 
-    public String getLgImage() {
-        return lgImage;
-    }
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	private String language;
 
-    public void setLgImage(String lgImage) {
-        this.lgImage = lgImage;
-    }
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	private String rating;
 
-    public String getSmImage() {
-        return smImage;
-    }
+	private String smImage;
+	private String lgImage;
 
-    public void setSmImage(String smImage) {
-        this.smImage = smImage;
-    }
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	private String year;
 
-    public String getRating() {
-        return rating;
-    }
+	public ObjectId getId() {
+		return id;
+	}
 
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
 
-    public String getLanguage() {
-        return language;
-    }
+	public String getYear() {
+		return year;
+	}
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
+	public void setYear(String year) {
+		this.year = year;
+	}
 
-    public String getIsbn() {
-        return isbn;
-    }
+	public String getLgImage() {
+		return lgImage;
+	}
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
+	public void setLgImage(String lgImage) {
+		this.lgImage = lgImage;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getSmImage() {
+		return smImage;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setSmImage(String smImage) {
+		this.smImage = smImage;
+	}
 
-    public String getAuthor() {
-        return author;
-    }
+	public String getRating() {
+		return rating;
+	}
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 }

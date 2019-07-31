@@ -4,17 +4,17 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
 <hibernate-mapping>
-   <class name = "com.booksearch.Book" table = "book">
+   <class name = "Book" table = "book">
       
       <meta attribute = "class-description">
          This class contains the book detail. 
       </meta>
       
-      <id name = "id" type = "org.bson.types.ObjectId" column = "_id">
+      <id name = "id" type = "int" column = "id">
          <generator class="native"/>
       </id>
     
-      <!-- <property name = "id" column = "_id" type = "org.bson.types.ObjectId" insert="false" update="false"/> -->
+      <property name = "id" column = "_id" type = "org.bson.types.ObjectId"/>
       <property name = "isbn" column = "isbn" type = "string"/>
       <property name = "title" column = "title" type = "string"/>
       <property name = "rating" column = "rating" type = "string"/>
@@ -25,4 +25,5 @@
       <property name = "year" column = "year" type = "string"/>
       
    </class>
+   
 </hibernate-mapping>
