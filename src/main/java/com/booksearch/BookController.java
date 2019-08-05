@@ -89,28 +89,28 @@ public class BookController {
 //	    .addProperties(properties)
 		.addAnnotatedClass(com.booksearch.Book.class)
 	    .setProperty("hibernate.ogm.datastore.database", "test")
-	    .setProperty("hibernate.ogm.datastore.provider", "org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider")
-	    .setProperty("mapping.resource", "com.booksearch.Book.hbm.xml")
-		.setProperty("hibernate.search.default.directory_provider", "filesystem")
-		.setProperty("hibernate.search.default.indexBase", "/var/lucene/indexes")
-		.setProperty("hibernate.connection.pool_size", "10")
-//		.setProperty("hibernate.hbm2ddl.auto", "validate")
-		.setProperty("hibernate.ogm.datastore.dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect");
-//	    .setProperty("hibernate.ogm.datastore.dialect", "org.hibernate.dialect.HSQLDialect")
+	    .setProperty("hibernate.ogm.datastore.provider", "mongodb")
 //	    .setProperty("hibernate.ogm.mongodb.host", "127.0.0.1")
 //	    .setProperty("hibernate.ogm.mongodb.port", "27017")
 //	    .setProperty("hibernate.ogm.mongodb.database", "test")
-//	    .setProperty("hibernate.ogm.datastore.provider", "mongodb")
+//	    .setProperty("mapping.resource", "com.booksearch.Book.hbm.xml")
+		.setProperty("hibernate.search.default.directory_provider", "filesystem")
+		.setProperty("hibernate.search.default.indexBase", "/var/lucene/indexes");
+//		.setProperty("hibernate.connection.pool_size", "10")
+//		.setProperty("hibernate.hbm2ddl.auto", "validate")
+//		.setProperty("hibernate.ogm.datastore.dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect")
+//	    .setProperty("hibernate.ogm.datastore.dialect", "org.hibernate.dialect.HSQLDialect")
+//	    .setProperty("hibernate.ogm.datastore.provider", "mongodb");
 //	    .setProperty("hibernate.connection.url", "jdbc:hsqldb:mem:test")
 //	    .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver")
 //	    .setProperty("hibernate.dialect", "org.hibernate.dialect.OracleDialect")
 //        .setProperty("hibernate.ogm.datastore.create_database", "true");
 //	    .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver");
-//		SessionFactory sessions = cfg.buildSessionFactory();
-//		Session session = sessions.openSession();
+		SessionFactory sessions = cfg.buildSessionFactory();
+		Session session = sessions.openSession();
 //		
 		
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("book");
+//		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("com.booksearch.book");
 //		EntityManager em = entityManagerFactory.createEntityManager();
 //		FullTextEntityManager fullTextEntityManager =
 //		    org.hibernate.search.jpa.Search.getFullTextEntityManager(em);

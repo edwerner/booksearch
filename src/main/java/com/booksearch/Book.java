@@ -23,15 +23,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import org.bson.types.ObjectId;
 
+@Entity
+@Indexed
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
-@Indexed
 public class Book {
 
 	@Id
+	@GeneratedValue
 	@FieldBridge(impl = IntegerBridge.class)
 	private ObjectId id;
 
