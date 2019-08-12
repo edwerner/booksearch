@@ -7,15 +7,22 @@
         <property name="hibernate.dialect">org.hibernate.ogm.datastore.mongodb.MongoDBDialect</property>
 
         <!-- Database connection settings -->
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>
+        <!--         <property name="dialect">org.hibernate.ogm.dialect.mongodb.MongoDBDialect</property>
+         -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/books</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">Gv3rn1ca</property>
         <property name="hibernate.ogm.datastore.provider">mongodb</property>
         <property name="hibernate.ogm.datastore.host">127.0.0.1</property>
-        <property name="hibernate.ogm.datastore.port">27017</property>
+        <property name="hibernate.ogm.mongodb.port">27017</property>
         <property name="hibernate.ogm.datastore.database">test</property>
         <property name="hibernate.ogm.datastore.create_database">true</property>
-
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="entitymanager.packagesToScan">com.booksearch</property>
+        
         <mapping class="com.booksearch.Book"/>
-        <mapping resource="com/booksearch/Book.hbm.xml"/> 
+        <mapping resource="Book.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

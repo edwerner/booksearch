@@ -1,5 +1,0 @@
-<hibernate-configuration>
-    <session-factory>
-        <property name="dialect">org.hibernate.ogm.dialect.mongodb.MongoDBDialect</property>
-    </session-factory>
-</hibernate-configuration>

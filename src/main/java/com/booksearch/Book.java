@@ -23,18 +23,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import org.bson.types.ObjectId;
 
-@Entity
-@Indexed
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Entity
+@Indexed
 public class Book {
 
 	@Id
+//	@FieldBridge(impl = StringBridge.class)
 	@GeneratedValue
-	@FieldBridge(impl = IntegerBridge.class)
-	private ObjectId id;
+	@DocumentId(name = "id")
+	private String id;
 
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
 	private String isbn;
@@ -57,11 +58,11 @@ public class Book {
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
 	private String year;
 
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -10,11 +10,10 @@
          This class contains the book detail. 
       </meta>
       
-      <id name = "id" type = "int" column = "id">
+      <id name = "id" type = "string" column = "_id">
          <generator class="native"/>
       </id>
     
-      <property name = "id" column = "_id" type = "org.bson.types.ObjectId"/>
       <property name = "isbn" column = "isbn" type = "string"/>
       <property name = "title" column = "title" type = "string"/>
       <property name = "rating" column = "rating" type = "string"/>
@@ -25,5 +24,4 @@
       <property name = "year" column = "year" type = "string"/>
       
    </class>
-   
 </hibernate-mapping>
