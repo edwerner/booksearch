@@ -88,11 +88,11 @@ public class BookController {
 		
 		
 		
-		SearchMapping mapping = new SearchMapping();
-		mapping.entity(Book.class).indexed();
+//		SearchMapping mapping = new SearchMapping();
+//		mapping.entity(Book.class).indexed();
 
 		Configuration config = new Configuration();
-		config.getProperties().put(Environment.MODEL_MAPPING, mapping);
+//		config.getProperties().put(Environment.MODEL_MAPPING, mapping);
 				
 //		config.setProperty("hibernate.ogm.datastore.database", "test")
 //		.addResource("com/booksearch/Book.hbm.xml")
@@ -108,7 +108,7 @@ public class BookController {
 ////		.setProperty("entitymanager.packagesToScan", "com.booksearch")
 ////	    .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver")
 //	    .setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver")
-		config.addAnnotatedClass(Book.class);
+		config.addClass(com.booksearch.Book.class);
 		
 		
 		SessionFactory sessionFactory = config.configure().buildSessionFactory();
@@ -118,6 +118,9 @@ public class BookController {
 		FullTextSession fullTextSession = Search.getFullTextSession(session);
 		fullTextSession.createIndexer().startAndWait();
 		
+
+//		QueryBuilder builder = fullTextSession.getSearchFactory()
+//				.buildQueryBuilder().forEntity(com.booksearch.Book.class).get();
 		
 		
 		
@@ -163,8 +166,6 @@ public class BookController {
 //		FullTextSession fullTextSession = Search.getFullTextSession(session);
 //		fullTextSession.createIndexer().startAndWait();
 //		
-//		QueryBuilder builder = fullTextSession.getSearchFactory()
-//				.buildQueryBuilder().forEntity(Book.class).get();
 //		
 //		Query luceneQuery = builder.keyword()
 //				.onField("isbn")

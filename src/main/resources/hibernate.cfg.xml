@@ -4,7 +4,7 @@
     "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">  
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.dialect">org.hibernate.ogm.datastore.mongodb.MongoDBDialect</property>
+        <!-- <property name="hibernate.dialect">org.hibernate.ogm.datastore.mongodb.MongoDBDialect</property> -->
 
         <!-- Database connection settings -->
         <!--         <property name="dialect">org.hibernate.ogm.dialect.mongodb.MongoDBDialect</property>
@@ -20,9 +20,10 @@
         <property name="hibernate.ogm.datastore.create_database">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.hbm2ddl.auto">validate</property>
-        <property name="entitymanager.packagesToScan">com.booksearch</property>
+        <property name="hibernate.search.default.directory_provider">filesystem</property>
+        <property name="hibernate.search.default.indexBase">/var/lucene/indexes</property>
         
         <mapping class="com.booksearch.Book"/>
-        <mapping resource="Book.hbm.xml"/>
+        <mapping resource="com/booksearch/Book.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
