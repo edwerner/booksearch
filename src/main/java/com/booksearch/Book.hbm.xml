@@ -1,4 +1,4 @@
-<?xml version = "1.0" encoding = "utf-8"?>
+<!--  <?xml version = "1.0" encoding = "utf-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC 
 "-//Hibernate/Hibernate Mapping DTD//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
@@ -10,10 +10,11 @@
          This class contains the book detail. 
       </meta>
       
-      <id name = "id" type = "string" column = "_id">
+      <id name = "id" type = "string" column = "id">
          <generator class="native"/>
       </id>
     
+      <property name = "id" column = "_id" type = "string"/>
       <property name = "isbn" column = "isbn" type = "string"/>
       <property name = "title" column = "title" type = "string"/>
       <property name = "rating" column = "rating" type = "string"/>
@@ -24,4 +25,5 @@
       <property name = "year" column = "year" type = "string"/>
       
    </class>
-</hibernate-mapping>
+   
+</hibernate-mapping> -->

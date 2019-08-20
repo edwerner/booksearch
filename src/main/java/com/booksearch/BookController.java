@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.search.FullTextSession;
+import org.hibernate.search.MassIndexer;
 import org.hibernate.search.Search;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
@@ -45,6 +46,7 @@ import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
@@ -53,11 +55,58 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 public class BookController {
 
 	private final BookRepository bookRepository;
-//	private SessionFactory sessionFactory;
+	private FullTextSession fullTextSession;
+	private Configuration configuration;
 
 	BookController(BookRepository bookRepository) {
 		this.bookRepository = bookRepository;
-//        loadSessionFactory();
+
+		configuration = new Configuration()
+				.setProperty("hibernate.ogm.datastore.provider", "mongodb")
+				.setProperty("hibernate.ogm.datastore.create_database", "true")
+				.setProperty("hibernate.ogm.datastore.database", "test")
+				.setProperty("hibernate.ogm.mongodb.host", "127.0.0.1")
+				.setProperty("hibernate.ogm.mongodb.port", "27017")
+				.setProperty("hibernate.ogm.mongodb.username", "")
+				.setProperty("hibernate.ogm.mongodb.password", "")
+				.setProperty("hibernate.search.default.directory_provider", "filesystem")
+				.setProperty("hibernate.search.default.indexBase", "target/lucene/indexes");
+//				.addPackage("com.booksearch")
+//				.addAnnotatedClass(Book.class);
+
+//		SessionFactory sessionFactory = configuration.buildSessionFactory();
+		SessionFactory sessionFactory = buildSessionFactory();
+
+		Session session = sessionFactory.openSession();
+
+		fullTextSession = Search.getFullTextSession(session);
+
+		try {
+////			MassIndexer massIndexer = fullTextSession.createIndexer(Book.class);
+////			massIndexer.startAndWait();
+			fullTextSession.createIndexer().startAndWait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+//		session.close();
+
+		// SearchMapping mapping = new SearchMapping();
+		// mapping.entity(Book.class).indexed();
+	}
+	
+	private SessionFactory buildSessionFactory() {
+	    try {
+	        ServiceRegistry serviceRegistry
+	            = new StandardServiceRegistryBuilder()
+	                .applySettings(configuration.getProperties()).build();
+	        configuration.addAnnotatedClass(Book.class);
+	        return configuration
+	                .buildSessionFactory(serviceRegistry);
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("There is issue in hibernate util");
+	    }
 	}
 
 	@Bean
@@ -68,10 +117,8 @@ public class BookController {
 	@RequestMapping(value = "/books")
 	public String books(final Model model) {
 
-
-		
 		System.out.println("************BOOKS**************");
-		
+
 		// IReactiveDataDriverContextVariable books =
 		// new ReactiveDataDriverContextVariable(bookRepository.findAll());
 
@@ -82,144 +129,20 @@ public class BookController {
 
 	@RequestMapping(value = "/search")
 	public String search(final Model model, @RequestParam("term") String term) throws InterruptedException {
-		
+
 		System.out.println("TERM: " + term);
-		
-		
-		
-		
-//		SearchMapping mapping = new SearchMapping();
-//		mapping.entity(Book.class).indexed();
+		QueryBuilder builder = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Book.class).get();
 
-		Configuration config = new Configuration();
-//		config.getProperties().put(Environment.MODEL_MAPPING, mapping);
-				
-//		config.setProperty("hibernate.ogm.datastore.database", "test")
-//		.addResource("com/booksearch/Book.hbm.xml")
-//	    .setProperty("hibernate.ogm.datastore.database", "test")
-//	    .setProperty("hibernate.ogm.datastore.provider", "mongodb")
-//	    .setProperty("hibernate.ogm.mongodb.host", "127.0.0.1")
-//	    .setProperty("hibernate.ogm.mongodb.port", "27017")
-//		.setProperty("hibernate.dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect")
-////	    .setProperty("hibernate.hbm2ddl.auto", "validate")
-//		.setProperty("hibernate.search.default.directory_provider", "filesystem")
-//		.setProperty("hibernate.search.default.indexBase", "/var/lucene/indexes")
-////	    .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLInnoDBDialect")
-////		.setProperty("entitymanager.packagesToScan", "com.booksearch")
-////	    .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver")
-//	    .setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver")
-		config.addClass(com.booksearch.Book.class);
-		
-		
-		SessionFactory sessionFactory = config.configure().buildSessionFactory();
+		Query luceneQuery = builder.keyword().onField("isbn").andField("title").andField("author").andField("language")
+				.andField("year").matching(term).createQuery();
+		@SuppressWarnings("rawtypes")
+		org.hibernate.query.Query fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery);
 
-		Session session = sessionFactory.openSession();
-		
-		FullTextSession fullTextSession = Search.getFullTextSession(session);
-		fullTextSession.createIndexer().startAndWait();
-		
+		@SuppressWarnings("unchecked")
+		List<Book> results = fullTextQuery.list();
 
-//		QueryBuilder builder = fullTextSession.getSearchFactory()
-//				.buildQueryBuilder().forEntity(com.booksearch.Book.class).get();
-		
-		
-		
-		
-		
-		
+		model.addAttribute("books", results);
 
-		
-//		   .setProperty("hibernate.ogm.datastore.database", "test")
-//		    .setProperty("hibernate.ogm.datastore.provider", "org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider")
-//		    .setProperty("mapping.resource", "com.booksearch.Book.hbm.xml")
-//			.setProperty("hibernate.search.default.directory_provider", "filesystem")
-//			.setProperty("hibernate.search.default.indexBase", "/var/lucene/indexes")
-//			.setProperty("hibernate.connection.pool_size", "10")
-//			.setProperty("hibernate.ogm.datastore.dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect");
-//		    .setProperty("hibernate.ogm.datastore.dialect", "org.hibernate.dialect.HSQLDialect")
-//		    .setProperty("hibernate.ogm.mongodb.host", "127.0.0.1")
-//		    .setProperty("hibernate.ogm.mongodb.port", "27017")
-//		    .setProperty("hibernate.ogm.mongodb.database", "test")
-//		    .setProperty("hibernate.ogm.datastore.provider", "mongodb")
-//		    .setProperty("hibernate.connection.url", "jdbc:hsqldb:mem:test")
-//		    .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver")
-//		    .setProperty("hibernate.dialect", "org.hibernate.dialect.OracleDialect")
-//	        .setProperty("hibernate.ogm.datastore.create_database", "true");
-//		    .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver");
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-//		System.out.println("CONFIG: " + config.buildSessionFactory());
-//		SessionFactory sessionFactory = config.buildSessionFactory();
-//		Session session = sessionFactory.openSession();
-//				
-//		FullTextSession fullTextSession = Search.getFullTextSession(session);
-//		fullTextSession.createIndexer().startAndWait();
-//		
-//		
-//		Query luceneQuery = builder.keyword()
-//				.onField("isbn")
-//				.andField("title")
-//				.andField("author")
-//				.andField("language")
-//				.andField("year")
-//				.matching(term)
-//				.createQuery();
-//		
-//		@SuppressWarnings("rawtypes")
-//		org.hibernate.query.Query fullTextQuery = fullTextSession.createFullTextQuery(luceneQuery);
-//		
-//		@SuppressWarnings("unchecked")
-//		List<Book> results = fullTextQuery.list();
-//		
-//		model.addAttribute("books", results);
-		
 		return "search";
 	}
-   
-//    public void loadSessionFactory() {
-//    	
-//    	Properties properties = null;
-//        if (properties == null) {
-//            properties = new Properties();
-//            try {
-//                properties.load(PropertiesUtil.class.getResourceAsStream("application.properties"));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-// 
-//        Configuration configuration = new Configuration();
-////        configuration.configure("application.properties");
-//	    configuration.setProperty("hibernate.dialect", "org.hibernate.ogm.datastore.mongodb.MongoDBDialect");
-//        configuration.addProperties(properties);
-//        configuration.addAnnotatedClass(Book.class);
-//        ServiceRegistry srvcReg = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-//        sessionFactory = configuration.buildSessionFactory(srvcReg);
-//    }
- 
-//    public Session getSession() throws HibernateException {
-// 
-//        Session retSession = null;
-//            try {
-//                retSession = sessionFactory.openSession();
-//            }catch(Throwable t){
-//	            System.err.println("Exception while getting session.. ");
-//	            t.printStackTrace();
-//            }
-//            if(retSession == null) {
-//                System.err.println("session is discovered null");
-//            }
-//            return retSession;
-//    }
 }

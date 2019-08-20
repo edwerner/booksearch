@@ -42,8 +42,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-web</artifactId> 
-			</dependency> -->
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>
@@ -64,12 +62,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>6.0.0.Alpha2</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search-orm</artifactId>
 			<version>5.11.2.Final</version>
 		</dependency>
@@ -79,9 +71,15 @@
 			<version>5.4.1.Final</version>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-directory-provider</artifactId>
+			<version>10.0.0.Beta5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate.ogm</groupId>
+			<artifactId>hibernate-ogm-infinispan-embedded</artifactId>
+			<version>5.4.1.Final</version>
+		</dependency>	
 	</dependencies>
 
 	<build>

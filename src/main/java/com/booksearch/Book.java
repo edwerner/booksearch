@@ -24,7 +24,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.bson.types.ObjectId;
 
 @Entity
-//@Indexed
+@Indexed
+@Table(name = "book")
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,35 +34,34 @@ public class Book {
 
 	@Id
 	@GeneratedValue
-	@DocumentId
-	private ObjectId id;
+	private String id;
 
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Field
 	private String isbn;
 
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Field
 	private String title;
 
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Field
 	private String author;
 
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Field
 	private String language;
 
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Field
 	private String rating;
 
 	private String smImage;
 	private String lgImage;
 
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Field
 	private String year;
 
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
