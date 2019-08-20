@@ -3,29 +3,9 @@ package com.booksearch;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.search.annotations.Analyze;
-import org.hibernate.search.annotations.DocumentId;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.FieldBridge;
-import org.hibernate.search.annotations.Index;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
-import org.hibernate.search.bridge.builtin.IntegerBridge;
-import org.hibernate.search.bridge.builtin.StringBridge;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import org.bson.types.ObjectId;
-
-@Entity
-@Indexed
-@Table(name = "book")
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,28 +13,22 @@ import org.bson.types.ObjectId;
 public class Book {
 
 	@Id
-	@GeneratedValue
 	private String id;
 
-	@Field
 	private String isbn;
 
-	@Field
 	private String title;
 
-	@Field
 	private String author;
 
-	@Field
 	private String language;
 
-	@Field
 	private String rating;
 
 	private String smImage;
+	
 	private String lgImage;
 
-	@Field
 	private String year;
 
 	public String getId() {

@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import reactor.core.publisher.Flux;
@@ -18,14 +16,10 @@ public class CSVReader {
 		String csvFile = "books.csv";
 		BufferedReader br = null;
 		String line = "";
-//		String splitOn = ",";
 
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 			while ((line = br.readLine()) != null) {
-
-//				String[] books = line.split(splitOn);
-				
 
 				String[] books = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 
