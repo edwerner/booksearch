@@ -12,6 +12,15 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
+import java.io.IOException;
+
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocumentList;
+
 @Controller
 public class BookController {
 
@@ -39,7 +48,32 @@ public class BookController {
 
 	@RequestMapping(value = "/search")
 	public String search(final Model model, @RequestParam("term") String term) throws InterruptedException {
+		
+		SolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr/bookstore").build();
 
+        SolrQuery query = new SolrQuery();
+        query.setQuery(term);
+//        query.addFilterQuery("cat:electronics","store:amazon.com");
+        query.setFields("isbn", "title", "author", "language", "rating", "year");
+        query.setStart(0);
+        query.set("defType", "edismax");
+        
+        QueryResponse response = null;
+        
+		try {
+			response = client.query(query);
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+        SolrDocumentList results = response.getResults();
+        for (int i = 0; i < results.size(); ++i) {
+        	System.out.println("ASDF");
+            System.out.println(results.get(i));
+        }
+ 
 		return "search";
 	}
 }

@@ -105,24 +105,10 @@ public class CSVReader {
 	public void indexBooks() throws IOException, SolrServerException { 
 		
 		Flux<Book> books = bookRepository.findAll();
-		
 		List<Book> bookList = books.collectList().block();
-//		bookList.forEach(solrClient.addBean());
 		
 		for (Book book : bookList) {
-			System.out.println(book);
+			solrClient.addBean(book);
 		}
-		
-//		books.map(book -> {
-//			System.out.println("***** map book *******");
-//			try {
-//				solrClient.addBean(book);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			} catch (SolrServerException e) {
-//				e.printStackTrace();
-//			}
-//			return book;
-//		}).subscribe();
 	}
 }

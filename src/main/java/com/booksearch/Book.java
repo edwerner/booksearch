@@ -22,7 +22,6 @@ public class Book {
 	private String language;
 	private String rating;
 	private String year;
-
 	private String smImage;
 	private String lgImage;
 	
@@ -35,6 +34,8 @@ public class Book {
 		this.language = language;
 		this.rating = rating;
 		this.year = year;
+		this.smImage = smImage;
+		this.lgImage = lgImage;
 	}
 	
 	@Field("id")
