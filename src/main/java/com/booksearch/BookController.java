@@ -13,6 +13,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -49,6 +50,7 @@ public class BookController {
 	@RequestMapping(value = "/search")
 	public String search(final Model model, @RequestParam("term") String term) throws InterruptedException {
 		
+		ArrayList<Book> bookList = new ArrayList<Book>();
 		SolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr/bookstore").build();
 
         SolrQuery query = new SolrQuery();
@@ -70,9 +72,19 @@ public class BookController {
 		
         SolrDocumentList results = response.getResults();
         for (int i = 0; i < results.size(); ++i) {
-        	System.out.println("ASDF");
-            System.out.println(results.get(i));
+            
+            Book book = new Book(
+            		String.valueOf(results.get(i).getFieldValue("isbn")),
+            		String.valueOf(results.get(i).getFieldValue("title")),
+            		String.valueOf(results.get(i).getFieldValue("author")),
+            		String.valueOf(results.get(i).getFieldValue("language")),
+            		String.valueOf(results.get(i).getFieldValue("rating")),
+            		String.valueOf(results.get(i).getFieldValue("year"))
+            	);
+            bookList.add(book);
         }
+        
+        model.addAttribute("books", bookList);
  
 		return "search";
 	}

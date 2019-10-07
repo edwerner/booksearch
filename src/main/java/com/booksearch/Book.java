@@ -38,6 +38,16 @@ public class Book {
 		this.lgImage = lgImage;
 	}
 	
+	public Book(String isbn, String title, String author, 
+			String language, String rating, String year) {
+		this.isbn = isbn;
+		this.title = title;
+		this.author = author;
+		this.language = language;
+		this.rating = rating;
+		this.year = year;
+	}
+	
 	@Field("id")
 	protected void setId(String id) {
 		this.id = id;
