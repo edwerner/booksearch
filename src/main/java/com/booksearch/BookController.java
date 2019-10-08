@@ -84,7 +84,6 @@ public class BookController {
             		String.valueOf(results.get(i).getFieldValue("smImage")),
             		String.valueOf(results.get(i).getFieldValue("lgImage"))
             	);
-            System.out.println(String.valueOf("SM IMAGE: " + results.get(i).getFieldValue("smImage")));
             bookList.add(book);
         }
         

@@ -15,21 +15,33 @@
 		</form>
 	</div>
 	
-	<div class="book-container flex flex-column flex-column-wrap">
-		<div class="book" th:each="book : ${books}">
-			<div class="flex flex-row navbar navbar-default">
-		     	<img class="book-img" th:src="@{${book.smImage}}" alt="small book image"/>
-		     	<div class="flex flex-column">
-				 	<div class="title"><span class="el-bold">Title</span>[[${book.title}]]</div>
-			     	<div><span class="el-bold">Author:</span>[[${book.author}]]</div>
-			     	<div><span class="el-bold">Year:</span>[[${book.year}]]</div>
-			     	<div><span class="el-bold">Language:</span>[[${book.language}]]</div>
-			     	<div><span class="el-bold">Rating:</span>[[${book.rating}]]</div>
-			     	<div><span class="el-bold">ISBN:</span>[[${book.isbn}]]</div>
-		     	</div>
-	      	</div>
+	<div th:if="${books.size() > 0}">
+		<!-- if -->
+		<div class="book-container flex flex-column flex-column-wrap">
+			<div class="book" th:each="book : ${books}">
+				<div class="flex flex-row navbar navbar-default">
+			     	<img class="book-img" th:src="@{${book.smImage}}" alt="small book image"/>
+			     	<div class="flex flex-column">
+					 	<div class="title"><span class="el-bold">Title</span>[[${book.title}]]</div>
+				     	<div><span class="el-bold">Author:</span>[[${book.author}]]</div>
+				     	<div><span class="el-bold">Year:</span>[[${book.year}]]</div>
+				     	<div><span class="el-bold">Language:</span>[[${book.language}]]</div>
+				     	<div><span class="el-bold">Rating:</span>[[${book.rating}]]</div>
+				     	<div><span class="el-bold">ISBN:</span>[[${book.isbn}]]</div>
+			     	</div>
+		      	</div>
+		    </div>
 	    </div>
+	</div>
+	
+	<div th:unless="${books.size() > 0}">
+		<div class="empty-list flex flex-center flex-column">
+			<!-- else -->
+	     	<div class="empty flex-align-center flex-space-between">
+	     		<h2>Sorry, no search results to display</h2>
+	     	</div>		
+     	</div>
     </div>
-    
+	   
 </body>
 </html>

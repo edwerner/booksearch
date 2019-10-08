@@ -47,3 +47,8 @@ body, html {
 	min-height: 100%;
 	overflow: hidden;
 }
+
+.empty-list {
+	height: 100%;
+	margin-top: 200px;
+}
