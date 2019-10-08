@@ -48,17 +48,18 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/search")
-	public String search(final Model model, @RequestParam("term") String term) throws InterruptedException {
+	public String search(final Model model, @RequestParam(defaultValue = "asdf") String term) throws InterruptedException {
 		
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		SolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr/bookstore").build();
 
         SolrQuery query = new SolrQuery();
         query.setQuery(term);
-//        query.addFilterQuery("cat:electronics","store:amazon.com");
+        // query.addFilterQuery("cat:electronics","store:amazon.com");
         query.setFields("isbn", "title", "author", "language",
         		"rating", "year", "smImage", "lgImage");
         query.setStart(0);
+        query.setRows(10000);
         query.set("defType", "edismax");
         
         QueryResponse response = null;
