@@ -50,12 +50,16 @@ public class BookController {
 	@RequestMapping(value = "/search")
 	public String search(final Model model, @RequestParam(defaultValue = "asdf") String term) throws InterruptedException {
 		
+		// create booklist to populate
+		// search results with
 		ArrayList<Book> bookList = new ArrayList<Book>();
+		
+		// create new solrclient instance
 		SolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr/bookstore").build();
 
+		// create and configure search query
         SolrQuery query = new SolrQuery();
         query.setQuery(term);
-        // query.addFilterQuery("cat:electronics","store:amazon.com");
         query.setFields("isbn", "title", "author", "language",
         		"rating", "year", "smImage", "lgImage");
         query.setStart(0);
@@ -65,6 +69,7 @@ public class BookController {
         QueryResponse response = null;
         
 		try {
+			// execute query
 			response = client.query(query);
 		} catch (SolrServerException e) {
 			e.printStackTrace();
@@ -72,9 +77,12 @@ public class BookController {
 			e.printStackTrace();
 		}
 		
+		// get results from query
         SolrDocumentList results = response.getResults();
         for (int i = 0; i < results.size(); ++i) {
             
+        	// create new book instance
+        	// with result list parameters
             Book book = new Book(
             		String.valueOf(results.get(i).getFieldValue("isbn")),
             		String.valueOf(results.get(i).getFieldValue("title")),
@@ -85,9 +93,11 @@ public class BookController {
             		String.valueOf(results.get(i).getFieldValue("smImage")),
             		String.valueOf(results.get(i).getFieldValue("lgImage"))
             	);
+            // add book to list
             bookList.add(book);
         }
         
+        // add book list to model
         model.addAttribute("books", bookList);
  
 		return "search";
