@@ -38,16 +38,6 @@ public class Book {
 		this.lgImage = lgImage;
 	}
 	
-	public Book(String isbn, String title, String author, 
-			String language, String rating, String year) {
-		this.isbn = isbn;
-		this.title = title;
-		this.author = author;
-		this.language = language;
-		this.rating = rating;
-		this.year = year;
-	}
-	
 	@Field("id")
 	protected void setId(String id) {
 		this.id = id;
@@ -115,6 +105,7 @@ public class Book {
 		return smImage;
 	}
 
+	@Field("smImage")
 	public void setSmImage(String smImage) {
 		this.smImage = smImage;
 	}
@@ -123,6 +114,7 @@ public class Book {
 		return lgImage;
 	}
 
+	@Field("lgImage")
 	public void setLgImage(String lgImage) {
 		this.lgImage = lgImage;
 	}

@@ -50,41 +50,43 @@ public class BookController {
 	@RequestMapping(value = "/search")
 	public String search(final Model model, @RequestParam("term") String term) throws InterruptedException {
 		
-		ArrayList<Book> bookList = new ArrayList<Book>();
-		SolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr/bookstore").build();
-
-        SolrQuery query = new SolrQuery();
-        query.setQuery(term);
-//        query.addFilterQuery("cat:electronics","store:amazon.com");
-        query.setFields("isbn", "title", "author", "language", "rating", "year");
-        query.setStart(0);
-        query.set("defType", "edismax");
-        
-        QueryResponse response = null;
-        
-		try {
-			response = client.query(query);
-		} catch (SolrServerException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-        SolrDocumentList results = response.getResults();
-        for (int i = 0; i < results.size(); ++i) {
-            
-            Book book = new Book(
-            		String.valueOf(results.get(i).getFieldValue("isbn")),
-            		String.valueOf(results.get(i).getFieldValue("title")),
-            		String.valueOf(results.get(i).getFieldValue("author")),
-            		String.valueOf(results.get(i).getFieldValue("language")),
-            		String.valueOf(results.get(i).getFieldValue("rating")),
-            		String.valueOf(results.get(i).getFieldValue("year"))
-            	);
-            bookList.add(book);
-        }
-        
-        model.addAttribute("books", bookList);
+//		ArrayList<Book> bookList = new ArrayList<Book>();
+//		SolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr/bookstore").build();
+//
+//        SolrQuery query = new SolrQuery();
+//        query.setQuery(term);
+////        query.addFilterQuery("cat:electronics","store:amazon.com");
+//        query.setFields("isbn", "title", "author", "language", "rating", "year");
+//        query.setStart(0);
+//        query.set("defType", "edismax");
+//        
+//        QueryResponse response = null;
+//        
+//		try {
+//			response = client.query(query);
+//		} catch (SolrServerException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//        SolrDocumentList results = response.getResults();
+//        for (int i = 0; i < results.size(); ++i) {
+//            
+//            Book book = new Book(
+//            		String.valueOf(results.get(i).getFieldValue("isbn")),
+//            		String.valueOf(results.get(i).getFieldValue("title")),
+//            		String.valueOf(results.get(i).getFieldValue("author")),
+//            		String.valueOf(results.get(i).getFieldValue("language")),
+//            		String.valueOf(results.get(i).getFieldValue("rating")),
+//            		String.valueOf(results.get(i).getFieldValue("year")),
+//            		String.valueOf(results.get(i).getFieldValue("smImage")),
+//            		String.valueOf(results.get(i).getFieldValue("lgImage"))
+//            	);
+//            bookList.add(book);
+//        }
+//        
+//        model.addAttribute("books", bookList);
  
 		return "search";
 	}

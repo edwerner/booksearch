@@ -78,13 +78,11 @@ public class CSVReader {
 					smImage = "https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png";
 				}
 				
-				// save book to mongodb
+				// create new book instance
 				Book book = new Book(isbn, title, author, language, rating, year, lgImage, smImage);
-
-				// create solr indices from book list query
-//				indexBook(book);
 				
-//				bookRepository.saveAll(Flux.just(book)).subscribe();
+				// save book to mongodb
+				bookRepository.saveAll(Flux.just(book)).subscribe();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -97,8 +95,10 @@ public class CSVReader {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				
+				// index books to solr server
+				indexBooks();
 			}
-			indexBooks();
 		}
 	}
 
