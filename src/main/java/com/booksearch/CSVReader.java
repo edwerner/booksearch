@@ -97,7 +97,7 @@ public class CSVReader {
 				}
 				
 				// index books to solr server
-				indexBooks();
+//				indexBooks();
 			}
 		}
 	}
