@@ -14,6 +14,7 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -26,6 +27,7 @@ import org.apache.solr.common.SolrDocumentList;
 public class BookController {
 
 	private final BookRepository bookRepository;
+	private final int NUM_ITEMS_PER_PAGE = 10;
 
 	BookController(BookRepository bookRepository) {
 		this.bookRepository = bookRepository;
@@ -48,7 +50,9 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/search")
-	public String search(final Model model, @RequestParam(defaultValue = "asdf") String term) throws InterruptedException {
+	public String search(final Model model, 
+			@RequestParam(defaultValue = "asdf") String term,
+			@RequestParam(defaultValue = "1") int pageNum) throws InterruptedException {
 		
 		// create booklist to populate
 		// search results with
@@ -62,15 +66,30 @@ public class BookController {
         query.setQuery(term);
         query.setFields("isbn", "title", "author", "language",
         		"rating", "year", "smImage", "lgImage");
-        query.setStart(0);
-        query.setRows(10000);
+        
+        // paginate search results
+        query.setStart((pageNum - 1) * NUM_ITEMS_PER_PAGE);
+     	query.setRows(NUM_ITEMS_PER_PAGE);
+     		
         query.set("defType", "edismax");
+       
+		// execute the query on the server and get results
         
+        // TODO: 
+        // pagination- 20 records per page
+        // Stay with solr, no hadoop
+        // more finite search settings
+        
+        // 1) go for hadoop, see what performance gains, response
+        // 2) how fast is search with pagination, page load
+        // 3) add advanced search checkboxes if necessary
+        // 4) 
         QueryResponse response = null;
-        
+        int queryCount = 0;
 		try {
 			// execute query
 			response = client.query(query);
+			queryCount = (int) client.query(query).getResults().getNumFound();
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -97,8 +116,14 @@ public class BookController {
             bookList.add(book);
         }
         
+        int[] range = IntStream.rangeClosed(1, queryCount).toArray();
+        
+        System.out.println("QUERY COUNT: " + queryCount);
+        
         // add book list to model
         model.addAttribute("books", bookList);
+        model.addAttribute("range", range);
+        model.addAttribute("count", queryCount);
  
 		return "search";
 	}

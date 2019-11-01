@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/flex.css">
 	<link rel="stylesheet" href="/css/app.css">
+	<link rel="stylesheet" href="/css/pagination.css">
 </head>
 <body>
 
@@ -15,9 +16,18 @@
 		</form>
 	</div>
 	
+	<div id="book-count">
+		<div id="results-count">
+			<span id="results-term"></span>
+			Results count: [[${count}]]
+		</div>
+	</div>
+	
 	<div th:if="${books.size() > 0}">
 		<!-- if -->
+		
 		<div class="book-container flex flex-column flex-column-wrap">
+		
 			<div class="book" th:each="book : ${books}">
 				<div class="flex flex-row navbar navbar-default">
 			     	<img class="book-img" th:src="@{${book.smImage}}" alt="small book image"/>
@@ -34,6 +44,30 @@
 	    </div>
 	</div>
 	
+	<script src="/javascripts/jquery-3.4.1.min.js"></script>
+	<script src="/javascripts/pagination.min.js"></script>
+	<script src="/javascripts/app.js"></script>
+	
+    <script th:inline="javascript">
+     	/*<![CDATA[*/
+    	document.addEventListener('DOMContentLoaded', function () {
+			$('#pagination').pagination({
+    			dataSource: /*[[${range}]]*/,
+    			pageSize: 10,
+    			callback: function(data, pagination) {
+        			console.log("REACHED CALLBACK");
+        			
+					$(".paginationjs-page li a").bind("click", function() {
+						console.log($(this).text());
+					});
+    			}
+			});
+		});
+       	/*]]>*/
+	</script>
+	
+    <div id="pagination" class="flex flex-center flex-row"></div>
+	
 	<div th:unless="${books.size() > 0}">
 		<div class="empty-list flex flex-center flex-column">
 			<!-- else -->
@@ -42,6 +76,5 @@
 	     	</div>		
      	</div>
     </div>
-	   
 </body>
 </html>

@@ -13,7 +13,7 @@
 	<artifactId>booksearch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>booksearch</name>
-	<description>A simple application built on Spring Boot and Hibernate Search</description>
+	<description>A simple search application built on Spring Boot and Solr</description>
 
 	<properties>
 		<java.version>1.8</java.version>
