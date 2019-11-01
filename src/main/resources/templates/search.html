@@ -55,13 +55,49 @@
     			dataSource: /*[[${range}]]*/,
     			pageSize: 10,
     			callback: function(data, pagination) {
-        			console.log("REACHED CALLBACK");
-        			
-					$(".paginationjs-page li a").bind("click", function() {
-						console.log($(this).text());
+					$(".paginationjs-page a").bind("click", function() {
+						insertParam("pageNum", $(this).text());
+						$(".paginationjs-page a").removeClass("active");
+					});
+					
+					$(".paginationjs-page").each(function() {
+						$(this).removeClass("active");
+						if ($(this).text() == getUrlParameter("pageNum")) {
+							$(this).addClass("active");
+						}
 					});
     			}
 			});
+		
+			function insertParam(key, value) {
+		    	key = encodeURI(key);
+		    	value = encodeURI(value);
+			    var kvp = document.location.search.substr(1).split('&');
+			    var i = kvp.length;
+			    var x;
+			    while (i--) {
+			        x = kvp[i].split('=');
+			
+			        if (x[0] == key) {
+			            x[1] = value;
+			            kvp[i] = x.join('=');
+			            break;
+			        }
+			    }
+			
+			    if (i < 0) {
+			        kvp[kvp.length] = [key, value].join('=');
+			    }
+	
+			    document.location.search = kvp.join('&');
+			}
+			
+			function getUrlParameter(name) {
+		    	name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+		    	var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+			    var results = regex.exec(location.search);
+			    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+			}
 		});
        	/*]]>*/
 	</script>
