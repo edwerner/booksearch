@@ -118,8 +118,6 @@ public class BookController {
         
         int[] range = IntStream.rangeClosed(1, queryCount).toArray();
         
-        System.out.println("QUERY COUNT: " + queryCount);
-        
         // add book list to model
         model.addAttribute("books", bookList);
         model.addAttribute("range", range);
