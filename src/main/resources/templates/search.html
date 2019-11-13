@@ -50,24 +50,23 @@
 	
     <script th:inline="javascript">
      	/*<![CDATA[*/
+     	
     	document.addEventListener('DOMContentLoaded', function () {
+    	
 			$('#pagination').pagination({
     			dataSource: /*[[${range}]]*/,
     			pageSize: 10,
 			    showPrevious: false,
 			    showNext: false,
+			    showGoInput: true,
     			callback: function(data, pagination) {
+    			
 					$(".paginationjs-page a").bind("click", function() {
 						insertParam("pageNum", $(this).text());
 						$(".paginationjs-page a").removeClass("active");
 					});
 					
-					$(".paginationjs-page").each(function() {
-						$(this).removeClass("active");
-						if ($(this).text() == getUrlParameter("pageNum")) {
-							$(this).addClass("active");
-						}
-					});
+					updatePageNumber();
 					
 					/*$(".paginationjs-next").bind("click", function() {
 						insertParam("pageNum", parseInt(getUrlParameter("pageNum")) + 1);
@@ -76,8 +75,25 @@
 					$(".paginationjs-prev").bind("click", function() {
 						insertParam("pageNum", parseInt(getUrlParameter("pageNum")) - 1);
 					});*/
+					
+					$(".J-paginationjs-go-pagenumber").keypress(function(event) {
+						var keycode = (event.keyCode ? event.keyCode : event.which);
+						if (keycode == '13'){
+							insertParam("pageNum", $(this).val());
+							updatePageNumber();
+						}
+					});
     			}
 			});
+			
+			function updatePageNumber() {	
+				$(".paginationjs-page").each(function() {
+					$(this).removeClass("active");
+					if ($(this).text() == getUrlParameter("pageNum")) {
+						$(this).addClass("active");
+					}
+				});
+			}
 		
 			function insertParam(key, value) {
 		    	key = encodeURI(key);
@@ -109,6 +125,7 @@
 			    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 			}
 		});
+		
        	/*]]>*/
 	</script>
 	
