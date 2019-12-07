@@ -30,6 +30,6 @@ Download and install [MongoDB](https://www.mongodb.com/download-center/community
 `mongod.exe` or Start service using Windows service app
 
 ## Start the web server with Maven
-`mvn exec:java`
+`mvn exec:java` or Right-click  `BooksearchApplication.java > Run As > Java Application`
 
 Navigate to `http://localhost:8080/search`
