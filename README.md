@@ -43,6 +43,6 @@ Recomment line when all entities are indexed by Solr
 `mongod.exe` or Start service using Windows service app
 
 ## Start the web server with Maven
-`mvn exec:java` or Right-click  `BooksearchApplication.java > Run As > Java Application`
+`mvn exec:java` or right-click  `BooksearchApplication.java > Run As > Java Application`
 
 Navigate to `http://localhost:8080/search`
