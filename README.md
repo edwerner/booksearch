@@ -21,6 +21,19 @@ Download and install [MongoDB](https://www.mongodb.com/download-center/community
 ### MongoDB
 (Windows) C:\Program Files\MongoDB\Server\4.2\bin
 
+# Persistence and Indexing
+
+## Parse CSV and Save to MongoDB
+Uncomment `CSVReader` instantiation and `saveBooks()` method call on lines `17` and `18` of `DataWriter.java`
+
+Recomment lines when all entities are persisted to MongoDB
+
+## Index Entities to Solr server instance
+
+Uncomment `indexBooks()` method call on line `111` of `CSVRreader.java`
+
+Recomment line when all entities are indexed by Solr
+
 # Running the Application
 
 ## Start MongoDB on Mac
