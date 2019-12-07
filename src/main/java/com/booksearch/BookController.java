@@ -88,6 +88,8 @@ public class BookController {
         int queryCount = 0;
 		try {
 			// execute query
+			System.out.println("client: " + client);
+			System.out.println("response: " + response);
 			response = client.query(query);
 			queryCount = (int) client.query(query).getResults().getNumFound();
 		} catch (SolrServerException e) {

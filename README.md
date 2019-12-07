@@ -1,2 +1,2 @@
 # booksearch
-Reactive Java Book search optimization built on Spring Boot
+Reactive Java book search optimization built on Spring Reactive and Solr search
