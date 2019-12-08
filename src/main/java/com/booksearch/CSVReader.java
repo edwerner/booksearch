@@ -12,17 +12,23 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.impl.XMLResponseParser;
 import org.apache.solr.common.SolrInputDocument;
 
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
+/**
+ * The Class CSVReader.
+ */
 public class CSVReader {
-	
 	private BookRepository bookRepository;
 	private String url = "http://localhost:8983/solr/bookstore";
 	private HttpSolrClient solrClient;
+	@SuppressWarnings("unused")
 	private SolrInputDocument document;
 
+	/**
+	 * Instantiates a new CSV reader.
+	 *
+	 * @param bookRepository the book repository
+	 */
 	public CSVReader(BookRepository bookRepository) {
 		this.bookRepository = bookRepository;
 		solrClient = new HttpSolrClient.Builder(url).build();
@@ -30,6 +36,12 @@ public class CSVReader {
 		document = new SolrInputDocument();
 	}
 	
+	/**
+	 * Save books.
+	 *
+	 * @throws SolrServerException the solr server exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void saveBooks() throws SolrServerException, IOException {
 		String csvFile = "books.csv";
 		BufferedReader br = null;
@@ -102,6 +114,12 @@ public class CSVReader {
 		}
 	}
 
+	/**
+	 * Index books.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws SolrServerException the solr server exception
+	 */
 	public void indexBooks() throws IOException, SolrServerException { 
 		
 		Flux<Book> books = bookRepository.findAll();

@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DataWriter implements ApplicationRunner {
-    private final BookRepository bookRepository;
+    @SuppressWarnings("unused")
+	private final BookRepository bookRepository;
 
     DataWriter(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -14,7 +15,7 @@ public class DataWriter implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-    	CSVReader reader = new CSVReader(bookRepository);
+//    	CSVReader reader = new CSVReader(bookRepository);
 //    	reader.saveBooks();
     }
 }
