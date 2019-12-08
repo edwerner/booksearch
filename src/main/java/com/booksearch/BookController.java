@@ -62,6 +62,7 @@ public class BookController {
 	@RequestMapping(value = "/books")
 	public String books(final Model model) {
 
+		// query first 10 books
 		model.addAttribute("books", bookRepository.findFirst10ByAuthor("J.K. Rowling"));
 
 		return "index";
@@ -106,9 +107,9 @@ public class BookController {
         int queryCount = 0;
 		try {
 			// execute query
-			System.out.println("client: " + client);
-			System.out.println("response: " + response);
 			response = client.query(query);
+			
+			//get query count
 			queryCount = (int) client.query(query).getResults().getNumFound();
 		} catch (SolrServerException e) {
 			e.printStackTrace();
