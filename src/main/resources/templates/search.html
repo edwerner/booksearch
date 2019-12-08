@@ -83,19 +83,19 @@
 							insertParam("pageNum", $(this).val());
 							updatePageNumber();
 						}
-					});	
+					});
     			}
 			});
 			
 			function updatePageNumber() {	
 				$(".paginationjs-page").each(function() {
 					$(this).removeClass("active");
-					if ($(this).text() == getUrlParameter("pageNum")) {
+					if ($(this).text() == parseInt(getUrlParameter("pageNum"))) {
 						$(this).addClass("active");
 					}
 				});
 			}
-		
+			
 			function insertParam(key, value) {
 		    	key = encodeURI(key);
 		    	value = encodeURI(value);
@@ -125,8 +125,13 @@
 			    var results = regex.exec(location.search);
 			    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 			}
+			// select first page
 			$(".paginationjs-first").click();
-			$(".paginationjs-page").first().addClass("active");
+			
+			// remove active page from all
+			$(".paginationjs-page").removeClass("active");
+			
+			updatePageNumber();
 		});
 		
        	/*]]>*/

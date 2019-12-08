@@ -64,7 +64,7 @@ public class CSVReader {
 
 				isbn = books[5];
 				author = books[7];
-				year = books[8];
+				year = books[8].replaceAll("\\.0*$", "");
 				title = books[10];
 				language = books[11];
 				rating = books[12];
@@ -116,7 +116,7 @@ public class CSVReader {
 	}
 
 	/**
-	 * Index books.
+	 * Index books to solr server.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws SolrServerException the solr server exception
