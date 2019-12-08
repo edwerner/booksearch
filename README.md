@@ -27,7 +27,7 @@ There should only be 10K total database records stored
 ### Solr
 (Windows) `C:\Users\Edward\hadoop-3.1.0\hadoop-3.1\hadoop-3.1.0\solr-6.3.0\bin`
 
-Run `http://localhost:8983/solr/bookstore/update?commit=true&stream.body=%3Cdelete%3E%3Cquery%3E*%3A*%3C/query%3E%3C/delete%3E` in browser to delete all indices and re-index all records
+Run `http://localhost:8983/solr/bookstore/update?commit=true&stream.body=%3Cdelete%3E%3Cquery%3E*%3A*%3C/query%3E%3C/delete%3E` in browser to delete all indices
 
 There should only be 10K total indices
 
