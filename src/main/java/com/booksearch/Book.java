@@ -8,12 +8,14 @@ import javax.persistence.Id;
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * The Class Book.
+ */
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Book {
-
 	@Id
 	private String id;
 	private String isbn;
@@ -25,6 +27,18 @@ public class Book {
 	private String smImage;
 	private String lgImage;
 	
+	/**
+	 * Instantiates a new book.
+	 *
+	 * @param isbn the isbn
+	 * @param title the title
+	 * @param author the author
+	 * @param language the language
+	 * @param rating the rating
+	 * @param year the year
+	 * @param smImage the sm image
+	 * @param lgImage the lg image
+	 */
 	public Book(String isbn, String title, String author, 
 			String language, String rating, String year,
 			String smImage, String lgImage) {
@@ -37,7 +51,7 @@ public class Book {
 		this.smImage = smImage;
 		this.lgImage = lgImage;
 	}
-	
+
 	@Field("id")
 	protected void setId(String id) {
 		this.id = id;

@@ -23,32 +23,59 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BookController.
+ */
 @Controller
 public class BookController {
 
 	private final BookRepository bookRepository;
 	private final int NUM_ITEMS_PER_PAGE = 10;
 
+	/**
+	 * Instantiates a new book controller.
+	 *
+	 * @param bookRepository the book repository
+	 */
 	BookController(BookRepository bookRepository) {
 		this.bookRepository = bookRepository;
 	}
 	
+	/**
+	 * Routes.
+	 *
+	 * @param br the br
+	 * @return the router function
+	 */
 	@Bean
 	RouterFunction<ServerResponse> routes(BookRepository br) {
 		return RouterFunctions.route(GET("/bookfeed"), serverRequest -> ok().body(br.findAll(), Book.class));
 	}
 
+	/**
+	 * Books.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@RequestMapping(value = "/books")
 	public String books(final Model model) {
-
-		// IReactiveDataDriverContextVariable books =
-		// new ReactiveDataDriverContextVariable(bookRepository.findAll());
 
 		model.addAttribute("books", bookRepository.findFirst10ByAuthor("J.K. Rowling"));
 
 		return "index";
 	}
 
+	/**
+	 * Search.
+	 *
+	 * @param model the model
+	 * @param term the term
+	 * @param pageNum the page num
+	 * @return the string
+	 * @throws InterruptedException the interrupted exception
+	 */
 	@RequestMapping(value = "/search")
 	public String search(final Model model, 
 			@RequestParam(defaultValue = "asdf") String term,
@@ -73,17 +100,8 @@ public class BookController {
      		
         query.set("defType", "edismax");
        
-		// execute the query on the server and get results
-        
-        // TODO: 
-        // pagination- 20 records per page
-        // Stay with solr, no hadoop
-        // more finite search settings
-        
-        // 1) go for hadoop, see what performance gains, response
-        // 2) how fast is search with pagination, page load
-        // 3) add advanced search checkboxes if necessary
-        // 4) 
+		// execute the query on the solr 
+        // server and get results
         QueryResponse response = null;
         int queryCount = 0;
 		try {
@@ -113,14 +131,14 @@ public class BookController {
             		String.valueOf(results.get(i).getFieldValue("year")),
             		String.valueOf(results.get(i).getFieldValue("smImage")),
             		String.valueOf(results.get(i).getFieldValue("lgImage"))
-            	);
+            );
             // add book to list
             bookList.add(book);
         }
         
         int[] range = IntStream.rangeClosed(1, queryCount).toArray();
         
-        // add book list to model
+        // add attributes to model
         model.addAttribute("books", bookList);
         model.addAttribute("range", range);
         model.addAttribute("count", queryCount);
