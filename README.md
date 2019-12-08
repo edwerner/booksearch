@@ -64,11 +64,10 @@ solr stop
 To start, run `mongod`
 To stop run, get label with `launchctl list | grep mongo` and `launchctl stop <job label>` to stop MongoDB
 
-## Star/Stop MongoDB on Windows
+## Start/Stop MongoDB on Windows
 Run `mongod.exe` or start/stop service using Windows service app
 
 ## Start the web server with Maven
 Run `mvn exec:java` or right-click  `BooksearchApplication.java > Run As > Java Application`
 
-# Viewing the Application
 Navigate to `http://localhost:8080/search`
