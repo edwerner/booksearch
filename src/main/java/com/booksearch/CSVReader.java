@@ -73,7 +73,8 @@ public class CSVReader {
 				String isBookImage = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 				lgImage = books[21];
 				smImage = books[22];
-
+				
+				// string match image url
 				boolean isLgUrl = Pattern.matches(isBookImage, lgImage);
 				boolean isSmUrl = Pattern.matches(isBookImage, smImage);
 				

@@ -22,6 +22,11 @@ body, html {
 	margin-right: 10px;
 }
 
+.book-icon {
+	margin: 20px;
+	width: 150px;
+}
+
 .el-bold {
 	margin-right: 5px;
 	font-weight: bold;
@@ -64,4 +69,15 @@ body, html {
 #results-term {
 	font-weight: bold;
 	font-style: italic;
+}
+
+.enter-button {
+	margin: 20px;
+}
+
+.modal-content,
+.modal-header,
+.modal-footer {
+	padding: 0px;
+	width: 100%;
 }

@@ -36,17 +36,20 @@
     <!-- Modal -->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalCenterTitle">Welcome to BookSearch</h5>
+	    <div class="modal-content flex flex-column flex-center">
+	      <div class="modal-header flex flex-row flex-center">
+	        <h1 class="modal-title" id="exampleModalCenterTitle">Welcome to BookSearch</h1>
+	      </div>
+	      <div class="book-icon flex flex-center">
+	      	<img src="/images/book.png" />
 	      </div>
 	      <div class="modal-body">
-	       	Booksearch is a reactive webapp built on Spring Boot and Hibernate Search. You can search
-	       	by <i>title, author, year, language, rating</i> and <i>ISBN</i>.
+	       	Booksearch is a reactive webapp built on Spring Webflux and Solr search. You can search
+	       	books by <i>title, author, year, language, rating</i> and <i>ISBN</i>.
 	      </div>
-	      <div class="modal-footer">
+	      <div class="modal-footer flex flex-row flex-center">
 	        <a href="/search">
-	        	<button type="button" class="btn btn-success" data-dismiss="modal">Search for Books</button>
+	        	<button type="button" class="btn btn-success enter-button" data-dismiss="modal">Search for Books</button>
 	        </a>
 	      </div>
 	    </div>
