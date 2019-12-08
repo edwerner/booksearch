@@ -70,4 +70,4 @@ Run `mongod.exe` or start/stop service using Windows service app
 ## Start the web server with Maven
 Run `mvn exec:java` or right-click  `BooksearchApplication.java > Run As > Java Application`
 
-Navigate to `http://localhost:8080/search`
+Navigate to http://localhost:8080/search
