@@ -37,7 +37,7 @@ Both persistence and indexing must be done concurrently
 Uncomment method calls listed below to persist and index data
 
 ## Parse CSV and Save to MongoDB
-Uncomment `CSVReader` instantiation and `saveBooks()` method call on lines `17` and `18` of `DataWriter.java`
+Uncomment `CSVReader` instantiation and `saveBooks()` method call on lines `18` and `19` of `DataWriter.java`
 
 Recomment lines when all entities are persisted to MongoDB
 
@@ -45,7 +45,7 @@ Recomment lines when all entities are persisted to MongoDB
 
 Create Solr core named `bookstore` in Solr admin panel found at http://localhost:8983/solr/#/~cores/
 
-Uncomment `indexBooks()` method call on line `111` of `CSVRreader.java`
+Uncomment `indexBooks()` method call on line `113` of `CSVRreader.java`
 
 Recomment line when all entities are indexed by Solr
 
