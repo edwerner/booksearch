@@ -56,15 +56,18 @@ Recomment line when all entities are indexed by Solr
 
 ## Start/Stop Solr on Windows
 solr.cmd start
+
 solr.cmd stop -p 8983
 
 ## Start/Stop Solr on Mac
 solr start
+
 solr stop
 
 ## Start/Stop MongoDB on Mac (Installed With Homebrew)
 To start, run `mongod`
-To stop run, get label with `launchctl list | grep mongo` and `launchctl stop <job label>` to stop MongoDB
+
+To stop, get job label with `launchctl list | grep mongo` and `launchctl stop <job label>` to stop MongoDB
 
 ## Start/Stop MongoDB on Windows
 Run `mongod.exe` or start/stop service using Windows service app
