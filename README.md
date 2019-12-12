@@ -1,6 +1,8 @@
 # booksearch
 Reactive Java book search application built on Spring Webflux, MongoDB and Apache Solr
 
+![Book page screenshot](src/main/resources/public/images/booksearch_screenshot.png)
+
 Project created in Eclipse
 
 # Installation
